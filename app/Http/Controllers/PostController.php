@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -12,12 +13,12 @@ class PostController extends Controller
      */
     public function index()
     {
-
+        $user = Auth::user(); // Get the authenticated user
         $posts = Post::all(); //select * from posts
         // filter Post::where('title', 'like', '%Laravel%')->get(); | select * from posts where title like '%Laravel%'
         // filter Post::where('title', 'like', '%Laravel%')->first(); | select * from posts where title like '%Laravel%' limit 1
         // filter Post::find(1); | select * from posts where id = 1
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'user'));
     }
 
     /**
@@ -36,7 +37,7 @@ class PostController extends Controller
 
         $post = Post::create($request->all());
 
-        return redirect()->route('posts.show',$post);
+        return redirect()->route('posts.show', $post);
     }
     /**
      * Display the specified resource.
@@ -49,15 +50,15 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-public function edit(Post $post) // http GET
-    {   
+    public function edit(Post $post) // http GET
+    {
         return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-   public function update(Request $request, Post $post) // http PUT/PATCH
+    public function update(Request $request, Post $post) // http PUT/PATCH
     {
         //$post = Post::findOrFail($post->id); // Ensure the post exists, otherwise throw a 404 error
 

@@ -83,7 +83,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirect to intended page or default route
-        return redirect()->intended('dashboard');
+        return redirect()->intended('posts');
     }
 
     /**
@@ -106,20 +106,6 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    /**
-     * Show the user dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showDashboard()
-    {
-        // Ensure the user is authenticated
-        if (!Auth::check()) {
-            return redirect('/login')->with('error', 'You must be logged in to access the dashboard.');
-        }
-
-        // Return the dashboard view
-        return view('dashboard');
-    }
+ 
 }
 

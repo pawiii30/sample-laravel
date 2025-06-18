@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Posts</h1>
+    <h4>{{ $user->email }}</h4>
     <a href="{{ route('posts.create') }}" class="btn btn-primary">Create Post</a>
     <table class="table">
         <thead>
